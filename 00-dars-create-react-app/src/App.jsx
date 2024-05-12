@@ -24,7 +24,7 @@ function App() {
           <Filter />
         </div>
         <MovieList dataList={data} />
-        <MoviesAddForm />
+        <MoviesAddForm dataList={data} />
         <TestBlock />
       </div>
     </div>

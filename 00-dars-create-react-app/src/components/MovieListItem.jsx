@@ -21,7 +21,9 @@ class MovieListItem extends React.Component {
     }));
   };
 
-  deleteHandel = () => {};
+  deleteHandel = () => {
+    console.log("delete movie");
+  };
 
   render() {
     const { name, views } = this.props;
