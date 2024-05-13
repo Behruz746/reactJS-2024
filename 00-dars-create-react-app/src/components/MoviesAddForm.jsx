@@ -4,20 +4,30 @@ class MoviesAddForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Kung Fu Panda",
-      views: "000",
+      name: "",
+      views: "",
     };
   }
 
   onChangeInput = (e) => this.setState({ [e.target.name]: e.target.value });
+  addFormHandel = (e) => {
+    e.preventDefault();
+    if (this.state.name && this.state.views) {
+      this.props.addItem({ name: this.state.name, views: this.state.views });
+    }
+    this.setState({ name: "", views: "" });
+  };
 
   render() {
     const { name, views } = this.state;
-
     return (
       <div className="movies-add-form">
         <h3>Yangi kino qo'shing</h3>
-        <form action="#" className="add-form d-flex">
+        <form
+          action="#"
+          className="add-form d-flex"
+          onSubmit={this.addFormHandel}
+        >
           <input
             type="text"
             className="form-control new-post-label"

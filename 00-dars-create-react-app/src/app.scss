@@ -47,9 +47,11 @@
 .Movie-list {
   margin-top: 1.5rem;
   padding: 1.5rem;
+  height: 280px;
   border-radius: 4px;
   background-color: #fcfaf5;
   box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+  overflow: auto;
 }
 
 // movie list item styles

@@ -1,3 +1,5 @@
+import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   Info,
   Filter,
@@ -8,27 +10,105 @@ import {
 } from "./components";
 import "./app.scss";
 
-function App() {
-  const data = [
-    { name: "Empire of Osman", views: 900, favorite: false },
-    { name: "7 Samurai", views: 1000, favorite: true },
-    { name: "Porlash", views: 1500, favorite: false },
-  ];
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        { name: "Osman", views: 900, favorite: false, like: false, id: 1 },
+        { name: "7 Samurai", views: 1000, favorite: true, like: true, id: 2 },
+        { name: "Porlash", views: 1500, favorite: false, like: false, id: 3 },
+      ],
+    };
+  }
 
-  return (
-    <div className="App font-monospace">
-      <div className="content">
-        <Info />
-        <div className="search-panel">
-          <SearchPanel />
-          <Filter />
+  onDelete = (id) => {
+    this.setState(({ data }) => {
+      const newData = data.filter((obj) => obj.id != id);
+      return {
+        data: newData,
+      };
+    });
+  };
+
+  addItem = (item) => {
+    const newItem = {
+      ...item,
+      like: false,
+      favorite: false,
+      id: uuidv4(),
+    };
+    this.setState(({ data }) => {
+      return {
+        data: [...data, newItem],
+      };
+    });
+  };
+
+  toggleItem = (id, prop) => {
+    this.setState(({ data }) => {
+      return {
+        data: data.map((item) => {
+          if (item.id === id) {
+            return { ...item, [prop]: !item[prop] };
+          }
+          return item;
+        }),
+      };
+    });
+  };
+
+  render() {
+    const { data } = this.state;
+    const allMovies = data.length;
+    const favoriteMovies = data.filter((c) => c.favorite).length;
+
+    return (
+      <div className="App font-monospace">
+        <div className="content">
+          <Info allMovies={allMovies} favoriteMovies={favoriteMovies} />
+          <div className="search-panel">
+            <SearchPanel />
+            <Filter />
+          </div>
+          <MovieList
+            dataList={data}
+            onDelete={this.onDelete}
+            toggleItem={this.toggleItem}
+          />
+          <MoviesAddForm dataList={data} addItem={this.addItem} />
+          <TestBlock />
         </div>
-        <MovieList dataList={data} />
-        <MoviesAddForm dataList={data} />
-        <TestBlock />
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+// function App() {
+//   const data = [
+//     { name: "Empire of Osman", views: 900, favorite: false, id: 0 },
+//     { name: "7 Samurai", views: 1000, favorite: true, id: 1 },
+//     { name: "Porlash", views: 1500, favorite: false, id: 2 },
+//   ];
+
+//   const onDelete = (id) => {
+//     console.log(id);
+//   };
+
+//   return (
+//     <div className="App font-monospace">
+//       <div className="content">
+//         <Info />
+//         <div className="search-panel">
+//           <SearchPanel />
+//           <Filter />
+//         </div>
+//         <MovieList dataList={data} onDelete={onDelete} />
+//         <MoviesAddForm dataList={data} />
+//         <TestBlock />
+//       </div>
+//     </div>
+//   );
+// }
 
 export default App;
