@@ -19,6 +19,7 @@ class App extends Component {
         { name: "7 Samurai", views: 1000, favorite: true, like: true, id: 2 },
         { name: "Porlash", views: 1500, favorite: false, like: false, id: 3 },
       ],
+      term: "",
     };
   }
 
@@ -58,25 +59,40 @@ class App extends Component {
     });
   };
 
+  searchHeander = (arr, term) => {
+    if (term.length === 0) {
+      return arr;
+    }
+
+    return arr.filter(
+      (item) => item.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+    );
+  };
+
+  upDateTermHandel = (term) => {
+    this.setState({ term });
+  };
+
   render() {
-    const { data } = this.state;
+    const { data, term } = this.state;
     const allMovies = data.length;
     const favoriteMovies = data.filter((c) => c.favorite).length;
+    const visibleData = this.searchHeander(data, term);
 
     return (
       <div className="App font-monospace">
         <div className="content">
           <Info allMovies={allMovies} favoriteMovies={favoriteMovies} />
           <div className="search-panel">
-            <SearchPanel />
+            <SearchPanel upDateTermHandel={this.upDateTermHandel} />
             <Filter />
           </div>
           <MovieList
-            dataList={data}
+            dataList={visibleData}
             onDelete={this.onDelete}
             toggleItem={this.toggleItem}
           />
-          <MoviesAddForm dataList={data} addItem={this.addItem} />
+          <MoviesAddForm dataList={visibleData} addItem={this.addItem} />
           <TestBlock />
         </div>
       </div>
