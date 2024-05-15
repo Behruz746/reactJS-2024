@@ -20,6 +20,7 @@ class App extends Component {
         { name: "Porlash", views: 1500, favorite: false, like: false, id: 3 },
       ],
       term: "",
+      filter: "all",
     };
   }
 
@@ -73,11 +74,29 @@ class App extends Component {
     this.setState({ term });
   };
 
+  filterHendel = (arr, filter) => {
+    switch (filter) {
+      case "popular":
+        return arr.filter((c) => c.like);
+      case "mostViewers":
+        return arr.filter((c) => c.views >= 1000);
+      default:
+        return arr;
+    }
+  };
+
+  filterClick = (filter) => {
+    this.setState({ filter });
+  };
+
   render() {
-    const { data, term } = this.state;
+    const { data, term, filter } = this.state;
     const allMovies = data.length;
     const favoriteMovies = data.filter((c) => c.favorite).length;
-    const visibleData = this.searchHeander(data, term);
+    const visibleData = this.filterHendel(
+      this.searchHeander(data, term),
+      filter
+    );
 
     return (
       <div className="App font-monospace">
@@ -85,7 +104,12 @@ class App extends Component {
           <Info allMovies={allMovies} favoriteMovies={favoriteMovies} />
           <div className="search-panel">
             <SearchPanel upDateTermHandel={this.upDateTermHandel} />
-            <Filter />
+            <Filter
+              filterClick={(e) =>
+                this.filterClick(e.currentTarget.getAttribute("data-toggle"))
+              }
+              filter={filter}
+            />
           </div>
           <MovieList
             dataList={visibleData}
