@@ -11,6 +11,7 @@ class User extends React.Component {
     // malumotni ditruktizatsiya qilsa bo'ladi
 
     const { firstName, lastName, age } = this.props; // this.props componentga keladigan malumot
+
     return (
       <div
         style={{
@@ -37,6 +38,22 @@ class Count extends React.Component {
       counter: 0,
       age: "",
     };
+  }
+
+  // web site render bolganida bu method ishlaydi componentDidMount
+  componentDidMount() {
+    console.log("Mounting");
+  }
+
+  // web sitedan bironnarsani o'zgartirsak bu method ishlaydi componentDidUpdate
+  componentDidUpdate() {
+    document.title = `count: ${this.state.counter}`;
+    console.log("Update");
+  }
+
+  // web sitedan bironta component ochib ketsa ishlaydi componentWillUnmount
+  componentWillUnmount() {
+    console.log("Unmount");
   }
 
   countPlus = () => {
@@ -173,7 +190,8 @@ function TestBlock() {
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         <User firstName={"Behruz"} lastName={"Madaminov"} age={18} />
         <h1>Counter with function component</h1>
-        <Counter />
+        <Count />
+        {/* <Counter /> */}
         <h1>Counter with class component</h1>
         <Count />
       </div>
