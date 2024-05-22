@@ -1,0 +1,134 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  height: 100vh;
+  color: #000;
+}
+
+.content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 5rem 0;
+  background-color: #fff;
+}
+
+.Info {
+  padding: 1.5rem;
+  border-radius: 4px;
+  background-color: #fcfaf5;
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.search-panel {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 4px;
+  background-color: #fcfaf5;
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.search-input {
+  padding: 1.5rem;
+  border-radius: 4px;
+  background-color: #fcfaf5;
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.btn-group {
+  margin-top: 1rem;
+}
+
+.Movie-list {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  height: 280px;
+  border-radius: 4px;
+  background-color: #fcfaf5;
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+  overflow: auto;
+}
+
+// movie list item styles
+.list-group-item {
+  padding: 15px 20px;
+  border-bottom: 1px solid #3d5a80;
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  span {
+    line-height: 35px;
+    font-size: 20px;
+    cursor: pointer;
+    width: 550px;
+  }
+
+  input {
+    line-height: 35px;
+    font-size: 20px;
+    text-align: center;
+    border: 0;
+  }
+
+  button {
+    width: 35px;
+    height: 35px;
+    margin: 3px;
+    font-size: 17px;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .btn-cookie {
+    color: #e09f3e;
+  }
+
+  .btn-trash {
+    color: #e5383b;
+  }
+
+  .fa-star {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+    color: #e09f3e;
+    transition: all 0.3s linear;
+    transform: translateX(30px);
+    opacity: 0;
+  }
+}
+
+.list-group-item.like {
+  .fa-star {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.list-group-item.increase {
+  .list-group-item-label,
+  .list-group-item-input {
+    color: #e09f3e;
+  }
+
+  .btn-star {
+    color: #aeaeae;
+  }
+}
+
+// movies add form style
+.movies-add-form {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 4px;
+  background-color: #fcfaf5;
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+}
