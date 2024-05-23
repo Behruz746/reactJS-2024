@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../context";
 
-const MoviesAddForm = ({ addItem }) => {
+const MoviesAddForm = () => {
+  const { _, dispatch } = useContext(Context);
   const [itemData, setItemData] = useState({ name: "", views: "" });
 
   const onChangeInput = (e) =>
     setItemData({ ...itemData, [e.target.name]: e.target.value });
+
   const addFormHandel = (e) => {
     e.preventDefault();
     if (itemData.name && itemData.views) {
-      addItem({ name: itemData.name, views: itemData.views });
+      dispatch({
+        type: "ADD_ITEM",
+        payload: { name: itemData.name, views: itemData.views },
+      });
     }
     setItemData({ name: "", views: "" });
   };

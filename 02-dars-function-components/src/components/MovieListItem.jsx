@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../context";
 
 function MovieListItem(props) {
-  const { name, views, onDelte, favorite, like, toggleItem } = props;
+  const { name, views, favorite, like, id } = props;
+  const { state, dispatch } = useContext(Context);
+
+  const onDelete = () => {
+    dispatch({ type: "ON_DELETE", payload: id });
+  };
+
+  const toggleItem = (e) => {
+    const payload = {
+      id,
+      prop: e.currentTarget.getAttribute("data-toggle"),
+    };
+    dispatch({ type: "ON_TOGGLE_ITEM", payload: payload });
+  };
+
   return (
     <li
       className={`list-group-item d-flex jusrify-content-between ${
@@ -29,7 +44,7 @@ function MovieListItem(props) {
         >
           <i className="fas fa-cookie"></i>
         </button>
-        <button type="button" className="btn-trash btn-sm" onClick={onDelte}>
+        <button type="button" className="btn-trash btn-sm" onClick={onDelete}>
           <i className="fas fa-trash"></i>
         </button>
 

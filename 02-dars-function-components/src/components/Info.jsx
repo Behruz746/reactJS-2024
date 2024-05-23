@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../context";
 
-function Info({ allMovies, favoriteMovies }) {
+function Info() {
+  const { state } = useContext(Context);
+
   return (
     <div className="Info">
-      <p className="fs-3 text-uppercase">Barcha kinolar soni: {allMovies}</p>
+      <p className="fs-3 text-uppercase">
+        Barcha kinolar soni: {state.data.length}
+      </p>
       <p className="fs-4 text-uppercase">
-        Sivimli kinolar soni: {favoriteMovies}
+        Sivimli kinolar soni: {state.data.filter((c) => c.favorite).length}
       </p>
     </div>
   );
